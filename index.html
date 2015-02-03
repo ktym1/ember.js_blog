@@ -9,19 +9,63 @@
 </head>
 <body>
   <script type="text/x-handlebars">
-    <h2>Welcome to Ember.js</h2>
-
-    {{outlet}}
+   <div class="navbar">
+    <div classs="navbar-inner">
+      <a class="brand" href="#">Bloggr</a>
+      <ul class="nav">
+        <li>{{#link-to 'posts'}}Posts{{/link-to}}</li>
+        <li>{{#link-to 'about'}}About{{/link-to}}</li>
+      </ul>
+    </div>
+   </div>
+   {{outlet}}
   </script>
 
-  <script type="text/x-handlebars" id="index">
-    <ul>
-    {{#each item in model}}
-      <li>{{item}}</li>
-    {{/each}}
-    </ul>
+  <script type="text/x-handlebars" id="posts">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <table class="table">
+            <thead>
+              <tr><th> Recent Posts </th></tr>
+            </thead>
+            {{#each}}
+            <tr><td>
+              {{#link-to 'post' this}}
+                {{title}} <small class='muted'> by {{author.name}}</small>
+              {{/link-to}}
+            </td></tr>
+            {{/each}}
+          </table>
+        </div>
+          <div class="span9">
+          {{outlet}}
+        </div>
+      </div>
+    </div>
   </script>
 
+  <script type="text/x-handlebars" id="post">
+    <h1> {{title}}</h1>
+    <h2> by {{author.name}} <small class="muted">({{date}})</small</h2>
+
+    <hr>
+
+    <div class="intro">
+      {{excerpt}}
+    </div>
+
+    <div class="below-the-fold">
+      {{body}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="about">
+    <div class="about">
+      <p> Yehuda Katz is a member of the <a href="http://emberjs.com">Ember.js</a>, <a href="http://rubyonrails.org"><Ruby on Rails</a> </p>
+    </div>
+  </script>
+  
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-v2.0.0.js"></script>
   <script src="js/libs/ember-1.9.1.js"></script>
